@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2299">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="fr"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Gestion de Stock&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: Arial, sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>table { width: 100%; border-collapse: collapse; margin-top: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th, td { padding: 10px; border: 1px solid #ddd; text-align: center; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button { padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button:hover { background-color: #45a049; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Gestion de Stock&lt;/h2&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;form id="addProductForm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="productName"&gt;Nom du produit :&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="productName" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="productQuantity"&gt;Quantité :&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="productQuantity" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="productPrice"&gt;Prix :&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="productPrice" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button type="submit"&gt;Ajouter un produit&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3&gt;Produits en Stock&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;table id="stockTable"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Nom&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Quantité&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Prix&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Actions&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Produits ajoutés seront ici --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/table&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let products = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Ajouter un produit</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById("addProductForm").addEventListener("submit", function(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>event.preventDefault();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const name = document.getElementById("productName").value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const quantity = parseInt(document.getElementById("productQuantity").value);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const price = parseFloat(document.getElementById("productPrice").value);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const product = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>name: name,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>quantity: quantity,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>price: price</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>products.push(product);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateTable();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById("addProductForm").reset();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Mettre à jour le tableau des produits</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateTable() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const tableBody = document.getElementById("stockTable").getElementsByTagName('tbody')[0];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tableBody.innerHTML = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>products.forEach((product, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const row = tableBody.insertRow();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>row.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${product.name}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${product.quantity}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${product.price} €&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="updateQuantity(${index}, 'increase')"&gt;+&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="updateQuantity(${index}, 'decrease')"&gt;-&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Modifier la quantité de stock</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateQuantity(index, action) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (action === 'increase') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>products[index].quantity++;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (action === 'decrease' &amp;&amp; products[index].quantity &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>products[index].quantity--;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateTable();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
